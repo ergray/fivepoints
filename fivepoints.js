@@ -61,6 +61,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		for (day = 0; day < dayBoxes.length; day++){
 			dayBoxes[day].checked = false
 		}
+		$('#hours').text(0);
 	},
 
 
