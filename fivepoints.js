@@ -39,6 +39,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	selectEmployee: function(){
 		console.log('Select registered');
+		console.log($('.employees').val());
 	},
 
 	addEmployee: function(event){
