@@ -10,6 +10,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	events: {
 		'click #addEmployee': 'addEmployee',
 		'click .days' : 'addHours',
+		'change .employees' : 'selectEmployee',	
 	},
 	hours: 0,
 
@@ -19,7 +20,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	render: function(){
 		for (i = 0; i < this.collection.models.length; i++)
-			$('#employeelist').append('<option value='+this.collection.at(i).attributes.Name+'>'
+			$('.employees').append('<option value='+this.collection.at(i).attributes.Name+'>'
 				+this.collection.at(i).attributes.Name+'</option>');
 	},
 
@@ -36,6 +37,10 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		$('#hours').text(this.hours);
 	},
 
+	selectEmployee: function(){
+		console.log('Select registered');
+	},
+
 	addEmployee: function(event){
 		event.preventDefault();
 		console.log('Adding Employee');
@@ -46,8 +51,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		employeeName = $firstName.val() + ' ' + $lastName.val();	
 	//	this.collection.add({Name: ($firstName.val() + ' ' + $lastName.val())});
 		console.log('adding employee to select');
-		console.log($('#employeelist'));
-		$('#employeelist').append('<option value=' + $firstName.val() + ' ' + $lastName.val() + '>'
+		console.log($('.employees'));
+		$('.employees').append('<option value=' + $firstName.val() + ' ' + $lastName.val() + '>'
 			+ $firstName.val() + ' ' + $lastName.val() + '</option>');
 		var dayBoxes = document.getElementsByClassName('days');
 		for (day = 0; day < dayBoxes.length; day++){
