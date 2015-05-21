@@ -20,8 +20,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	render: function(){
 		for (i = 0; i < this.collection.models.length; i++)
-			$('.employees').append('<option value='+this.collection.at(i).attributes.Name+'>'
-				+this.collection.at(i).attributes.Name+'</option>');
+			$('.employees').append('<option value='+this.collection.at(i).attributes.lastName+'>'
+				+this.collection.at(i).attributes.lastName+', '+this.collection.at(i).attributes.firstName + '</option>');
 	},
 
 	addHours: function(event){
@@ -40,6 +40,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	selectEmployee: function(){
 		console.log('Select registered');
 		console.log($('.employees').val());
+		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
+		console.log(selectedEmployee);
 	},
 
 	addEmployee: function(event){
@@ -53,15 +55,15 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	//	this.collection.add({Name: ($firstName.val() + ' ' + $lastName.val())});
 		console.log('adding employee to select');
 		console.log($('.employees'));
-		$('.employees').append('<option value=' + $firstName.val() + ' ' + $lastName.val() + '>'
-			+ $firstName.val() + ' ' + $lastName.val() + '</option>');
+		$('.employees').append('<option value='+$lastName.val()+'>'
+			+ $lastName.val() + ', ' + $firstName.val() + '</option>');
 		var dayBoxes = document.getElementsByClassName('days');
 		for (day = 0; day < dayBoxes.length; day++){
 			if (dayBoxes[day].checked == true){
 				daysAvail.push(dayBoxes[day].id);
 			}
 		}
-		this.collection.add({Name: employeeName, Days: daysAvail});
+		this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), Days: daysAvail});
 		$firstName.val('');
 		$lastName.val('');
 		for (day = 0; day < dayBoxes.length; day++){
@@ -77,6 +79,6 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 
 $(function(){
-fivePointsEmployees = new FivePointsEmployees([{Name: 'Chris Larson'}]);
+fivePointsEmployees = new FivePointsEmployees([{firstName: 'Chris', lastName: 'Larson'}]);
 fivePointsView = new FivePointsEmployeesView({collection: fivePointsEmployees});
 })
