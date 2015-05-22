@@ -1,3 +1,4 @@
+
 var FivePointsEmployee = Backbone.Model.extend({});
 
 var FivePointsEmployees = Backbone.Collection.extend({
@@ -13,6 +14,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		'change .employees' : 'selectEmployee',	
 	},
 	hours: 0,
+
 
 	initialize: function(){
 		this.render();
@@ -38,11 +40,25 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	},
 
 	selectEmployee: function(){
+		var $firstName = $(this.el).find('#firstName');
+		var $lastName = $(this.el).find('#lastName');
 		console.log('Select registered');
 		console.log($('.employees').val());
 		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
 		console.log(selectedEmployee);
+		$('#hours').text(selectedEmployee.get("Hours"));
+		console.log(selectedEmployee.get("Days"));
+		$firstName.val(selectedEmployee.get("firstName"));
+		$lastName.val(selectedEmployee.get("lastName"));
+		for (day in selectedEmployee.get("Days")) {
+			var checkName = (selectedEmployee.get("Days")[day]);
+			console.log(checkName);
+			document.getElementById(checkName).checked = true;
+			console.log("okay i see it " +
+						selectedEmployee.get("Days"));
+		};
 	},
+
 
 	addEmployee: function(event){
 		event.preventDefault();
@@ -63,7 +79,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				daysAvail.push(dayBoxes[day].id);
 			}
 		}
-		this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), Days: daysAvail});
+		this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), Days: daysAvail, Hours: $('#hours').text()});
 		$firstName.val('');
 		$lastName.val('');
 		for (day = 0; day < dayBoxes.length; day++){
@@ -78,7 +94,9 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 
 
+
 $(function(){
+
 fivePointsEmployees = new FivePointsEmployees([{firstName: 'Chris', lastName: 'Larson'}]);
 fivePointsView = new FivePointsEmployeesView({collection: fivePointsEmployees});
 })
