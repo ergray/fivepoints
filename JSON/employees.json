@@ -1,0 +1,4 @@
+var fivePoints = '{ "employees" : [' + 
+	'{"firstName": "Chris" , "lastName" : "Larson", "daysAvail" : ["TO", "TM", "TC"] }, ' +
+	'{"firstName": "Eric" , "lastName" : "Gray", "daysAvail": ["MO", "MM", "MC"]} ]}';
+
