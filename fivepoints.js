@@ -3,7 +3,7 @@ var FivePointsEmployee = Backbone.Model.extend({});
 
 var FivePointsEmployees = Backbone.Collection.extend({
 	model: FivePointsEmployee,
-	url: 'JSON/employees.json',
+	url: 'http://www.htmlsouls.com/employees.json',
 
 })
 
