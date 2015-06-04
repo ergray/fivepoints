@@ -1,5 +1,4 @@
 var http = require('http');
-var proc = require('.env');
 
 var server = http.createServer(function(req, res){
 	res.end("HI HI HI")
