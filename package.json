@@ -1,0 +1,31 @@
+{
+  "name": "fivepoints",
+  "version": "1.0.0",
+  "description": "Scheduler for Five Points Coffee",
+  "main": "fivepoints.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ergray/fivepoints.git"
+  },
+  "keywords": [
+    "schedule",
+    "nodejs",
+    "backbone",
+    "js",
+    "fivepoints"
+  ],
+  "author": "Eric Gray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ergray/fivepoints/issues"
+  },
+  "dependencies": {
+    "http-server": "0.8.0",
+    "orchestrate": "^0.2.0"
+  },
+  "homepage": "https://github.com/ergray/fivepoints#readme"
+}
