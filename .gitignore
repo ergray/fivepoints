@@ -28,8 +28,10 @@
  
 # OS generated files #
 ######################
+config.json
 .DS_Store
 .DS_Store?
+.env
 ._*
 .Spotlight-V100
 .Trashes
