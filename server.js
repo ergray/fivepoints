@@ -7,4 +7,4 @@ var portCall = process.argv[2] || 5000
 server.listen(process.argv[2] || 5000)
 console.log("Listening on port " + portCall)
 console.log(process.env)
-console.log(ORCHESTRATE_KEY)
+console.log(process.env[ORCHESTRATE_KEY])
