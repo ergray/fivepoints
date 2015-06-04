@@ -2,8 +2,7 @@
 var FivePointsEmployee = Backbone.Model.extend({});
 
 var FivePointsEmployees = Backbone.Collection.extend({
-	model: FivePointsEmployee,
-	url: 'http://www.htmlsouls.com/employees.json',
+	model: FivePointsEmployee
 
 })
 
@@ -100,6 +99,4 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 $(function(){
 var beginPoints = new FivePointsEmployeesView();
-//var employeeParse = JSON.parse(fivePoints);
-//console.log(employeeParse);
 })
