@@ -79,7 +79,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		var dayBoxes = document.getElementsByClassName('days');
 		for (day = 0; day < dayBoxes.length; day++){
 			if (dayBoxes[day].checked == true){
-				daysAvail.push(dayBoxes[day].id);
+				daysAvaila.push(dayBoxes[day].id);
 			}
 		}
 		this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
