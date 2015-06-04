@@ -100,6 +100,6 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 $(function(){
 var beginPoints = new FivePointsEmployeesView();
-var employeeParse = JSON.parse(fivePoints);
-console.log(employeeParse);
+//var employeeParse = JSON.parse(fivePoints);
+//console.log(employeeParse);
 })
