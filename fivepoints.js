@@ -3,7 +3,7 @@ var FivePointsEmployee = Backbone.Model.extend({});
 
 var FivePointsEmployees = Backbone.Collection.extend({
 	model: FivePointsEmployee,
-	url: "https://dashboard.orchestrate.io/collections/37015"
+	url: "/api"
 })
 
 var FivePointsEmployeesView = Backbone.View.extend({

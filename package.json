@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "http-server": "0.8.0",
-    "orchestrate": "^0.2.0"
+    "orchestrate": "^0.2.0",
+    "routes": "2.0.0"
   },
   "homepage": "https://github.com/ergray/fivepoints#readme"
 }
