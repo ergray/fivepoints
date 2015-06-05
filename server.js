@@ -28,7 +28,7 @@ http.createServer(function(request, response) {
   		}
     	}
     	console.log(match.fn);
-    });
+    ;
 
 /*
     var match = router.match(uri);
