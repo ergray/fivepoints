@@ -16,6 +16,9 @@ http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
   console.log(uri);
+  if (uri.pathname = "/api") {
+  	console.log("Hi, I see a /api request kind of?")
+  };
   fs.exists(filename, function(exists) {
     if(!exists) {
       response.writeHead(404, {"Content-Type": "text/plain"});
