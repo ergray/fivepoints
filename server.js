@@ -20,6 +20,9 @@ router.addRoute("/api", function(){
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
+    var match = router.match(uri);
+    console.log("Here is match");
+    console.log(match);
 
 /*
     var match = router.match(uri);
