@@ -13,15 +13,17 @@ router.addRoute("/api", function(){
 	console.log("inside of api")
 });
 
+  	db.get(dbName, "employees")
+  		.then(function (result) {
+  			console.log(result)
+  		});
+  		
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
   console.log(uri);
   if (uri.pathname == "/api") {
-  	db.get(dbName, "employees")
-  		.then(function (result) {
-  			console.log(result)
-  		});
+
   	response.write("End of response, hi API, still don't know where inside of api is")
   };
   fs.exists(filename, function(exists) {
