@@ -16,8 +16,8 @@ http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
   console.log(uri);
-  if (uri.pathname = "/api") {
-  	console.log("Hi, I see a /api request kind of?")
+  if (uri.pathname == "/api") {
+  	response.end(console.log("End of response, hi API, still don't know where inside of api is"))
   };
   fs.exists(filename, function(exists) {
     if(!exists) {
