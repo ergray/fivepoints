@@ -24,8 +24,6 @@ http.createServer(function(request, response) {
     console.log("Here is match");
     if (match != undefined) {
     	if (match.route == '/api'){
-    		response.write(db.get(dbName, "employees")
-  		.then(function (result) {
   			console.log(result.body)
   		}))
     	}
