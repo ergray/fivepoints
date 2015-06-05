@@ -4,14 +4,24 @@ var fs = require('fs');
 var path = require('path');
 var Router = require('routes');
 var router = Router();
-var noop = function(){};
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 var dbName = "fivePointsEmployees";
+
 var sayHello = function(){
 	console.log("Hello say Hello")
 }
 
-router.addRoute("/api", sayHello)
+var grabCollection = db.get(dbName, 'employees')
+	.then(function (result) {
+		console.log(result.body);
+	})
+	.fail(function (err) {
+		console.log(err)
+	});
+
+
+
+router.addRoute("/api", grabCollection)
 
 
 http.createServer(function(request, response) {
