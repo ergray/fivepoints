@@ -15,7 +15,7 @@ router.addRoute("/api", function(){
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
-  
+  console.log(uri);
   fs.exists(filename, function(exists) {
     if(!exists) {
       response.writeHead(404, {"Content-Type": "text/plain"});
