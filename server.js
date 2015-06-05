@@ -15,9 +15,9 @@ router.addRoute("/api", function(){
 
   	db.get(dbName, "employees")
   		.then(function (result) {
-  			console.log(result)
+  			console.log(result.body)
   		});
-  		
+
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
