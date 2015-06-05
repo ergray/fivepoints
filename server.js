@@ -11,7 +11,6 @@ var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 router.addRoute("/api");
 
 http.createServer(function(request, response) {
-  console.log(request);
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
   
