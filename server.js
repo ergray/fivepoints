@@ -7,14 +7,11 @@ var router = Router();
 var noop = function(){};
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 var dbName = "fivePointsEmployees";
+var sayHello = function(){
+	console.log("Hello say Hello")
+}
 
-
-router.addRoute("/api", function(){
-  	db.get(dbName, "employees")
-  		.then(function (result) {
-  			console.log(result.body)
-  		});
-});
+router.addRoute("/api", sayHello)
 
 
 http.createServer(function(request, response) {
@@ -24,7 +21,7 @@ http.createServer(function(request, response) {
     console.log("Here is match");
     if (match != undefined) {
     	if (match.route == '/api'){
-  			console.log("hello")
+    		match.fn.apply();
   		}
     	}
     	console.log(match);
