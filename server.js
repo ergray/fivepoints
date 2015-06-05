@@ -31,6 +31,12 @@ http.createServer(function(request, response) {
       response.end();
       return;
     }
+
+    if (uri == "/api"){
+    	console.log("I see API")
+    	response.end();
+    	return;
+    }
  
     if (fs.statSync(filename).isDirectory()) filename += '/fivepoints.html';
  
