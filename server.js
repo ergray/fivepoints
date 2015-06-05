@@ -25,10 +25,10 @@ http.createServer(function(request, response) {
     if (match != undefined) {
     	if (match.route == '/api'){
   			console.log("hello")
-  		}))
+  		}
     	}
-    };
-    console.log(match.fn);
+    	console.log(match.fn);
+    });
 
 /*
     var match = router.match(uri);
