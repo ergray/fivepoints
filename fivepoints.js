@@ -8,6 +8,7 @@ var FivePointsEmployees = Backbone.Collection.extend({
 
 var FivePointsEmployeesView = Backbone.View.extend({
 	el: '#newEmployee',
+
 	events: {
 		'click #addEmployee': 'addEmployee',
 		'click .days' : 'addHours',
@@ -18,7 +19,9 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	initialize: function(){
 		this.collection = new FivePointsEmployees();
+		console.log("fetching");
 		this.collection.fetch();
+		console.log("fetched");
 		this.render();
 	},
 
