@@ -27,7 +27,7 @@ http.createServer(function(request, response) {
   			console.log("hello")
   		}
     	}
-    	console.log(match.fn);
+    	console.log(match);
     ;
 
 /*
