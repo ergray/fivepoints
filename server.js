@@ -45,5 +45,3 @@ http.createServer(function(request, response) {
 
 var portCall = process.env.PORT || 5000
 console.log("Listening on port " + portCall)
-console.log(process.env);
-console.log(process.env.ORCHESTRATE_KEY);
