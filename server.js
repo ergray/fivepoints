@@ -8,7 +8,9 @@ var noop = function(){};
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 
 
-router.addRoute("/api");
+router.addRoute("/api", function(){
+	console.log("inside of api")
+});
 
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
