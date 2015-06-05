@@ -22,6 +22,7 @@ http.createServer(function(request, response) {
     , filename = path.join(process.cwd(), uri);
     var match = router.match(uri);
     console.log("Here is match");
+    console.log(match.route == '/api');
     console.log(match);
 
 /*
