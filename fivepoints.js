@@ -20,7 +20,11 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	initialize: function(){
 		this.collection = new FivePointsEmployees();
 		console.log("fetching");
-		this.collection.fetch();
+		this.collection.fetch({
+			success: function(place, response, options){
+				console.log(place);
+			}
+		});
 		console.log("fetched");
 		this.render();
 	},
