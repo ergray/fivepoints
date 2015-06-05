@@ -30,8 +30,6 @@ http.createServer(function(request, response) {
       if(err) {        
         response.writeHead(500, {"Content-Type": "text/plain"});
         response.write(err + "\n");
-        console.log("ok here");
-        console.log(router.match("/api"));
         response.end();
         return;
       }
