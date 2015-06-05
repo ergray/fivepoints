@@ -24,11 +24,11 @@ http.createServer(function(request, response) {
     console.log("Here is match");
     if (match != undefined) {
     	if (match.route == '/api'){
-  			console.log(result.body)
+  			console.log("hello")
   		}))
     	}
     };
-    console.log(match);
+    console.log(match.fn);
 
 /*
     var match = router.match(uri);
