@@ -7,6 +7,9 @@ var router = Router();
 var noop = function(){};
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 
+
+router.addRoute("/api");
+
 http.createServer(function(request, response) {
   console.log(request);
   var uri = url.parse(request.url).pathname
@@ -26,6 +29,8 @@ http.createServer(function(request, response) {
       if(err) {        
         response.writeHead(500, {"Content-Type": "text/plain"});
         response.write(err + "\n");
+        console.log("ok here");
+        console.log(router.match("/api"));
         response.end();
         return;
       }
