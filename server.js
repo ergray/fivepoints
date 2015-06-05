@@ -6,6 +6,7 @@ var Router = require('routes');
 var router = Router();
 var noop = function(){};
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
+var dbName = "fivePointsEmployees";
 
 
 router.addRoute("/api", function(){
@@ -17,6 +18,10 @@ http.createServer(function(request, response) {
     , filename = path.join(process.cwd(), uri);
   console.log(uri);
   if (uri.pathname == "/api") {
+  	db.get(dbName, "employees")
+  		.then(function (result) {
+  			console.log(result)
+  		});
   	response.write("End of response, hi API, still don't know where inside of api is")
   };
   fs.exists(filename, function(exists) {
