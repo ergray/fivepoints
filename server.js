@@ -10,20 +10,27 @@ var dbName = "fivePointsEmployees";
 
 
 router.addRoute("/api", function(){
-	console.log("inside of api")
-});
-
   	db.get(dbName, "employees")
   		.then(function (result) {
   			console.log(result.body)
   		});
+});
+
 
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
+
+/*
+    var match = router.match(uri);
+    match.fn(req,res,match);
   console.log(uri);
   console.log("this is filename")
   console.log(filename);
+
+  */
+
+
   fs.exists(filename, function(exists) {
     if(!exists) {
       response.writeHead(404, {"Content-Type": "text/plain"});
@@ -32,11 +39,6 @@ http.createServer(function(request, response) {
       return;
     }
 
-    if (uri == "/api"){
-    	console.log("I see API")
-    	response.end();
-    	return;
-    }
  
     if (fs.statSync(filename).isDirectory()) filename += '/fivepoints.html';
  
