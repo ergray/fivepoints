@@ -23,7 +23,12 @@ http.createServer(function(request, response) {
     var match = router.match(uri);
     console.log("Here is match");
     if (match != undefined) {
-    	console.log(match.route == '/api');
+    	if (match.route == '/api'){
+    		response.write(db.get(dbName, "employees")
+  		.then(function (result) {
+  			console.log(result.body)
+  		}))
+    	}
     };
     console.log(match);
 
