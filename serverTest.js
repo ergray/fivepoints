@@ -33,6 +33,16 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	console.log("here is filename");
 	console.log(filename);
+	if (uri == "/"){
+		fs.readFile("./public/fivepoints.html", function(err, contents){
+			if (err) {
+				response.writeHead(500);
+				response.end(err);
+				return;
+			}
+			response.end(contents);
+		})
+	};
 	fs.readFile(uri, function(err, contents){
 			if (err) {
 				response.writeHead(500);
