@@ -24,4 +24,11 @@ router.addRoute("/api", grabCollection)
 
 http.createServer(function(request, response) {
 	console.log(process.argv)
+	var uri = url.parse(request.url).pathname
+	, filename = path.join(process.cwd(), uri);
+	console.log("here is uri");
+	console.log(uri);
+	console.log("here is filename");
+	console.log(filename);
+
 }).listen(process.env.PORT || 5000);
