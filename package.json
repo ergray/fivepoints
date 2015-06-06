@@ -2,7 +2,7 @@
   "name": "fivepoints",
   "version": "1.0.0",
   "description": "Scheduler for Five Points Coffee",
-  "main": "fivepoints.js",
+  "main": "./javascript/fivepoints.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
