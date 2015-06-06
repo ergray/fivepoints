@@ -56,7 +56,7 @@ http.createServer(function(request, response) {
     }
 
  
-    if (fs.statSync(filename).isDirectory()) filename += '.public/fivepoints.html';
+    if (fs.statSync(filename).isDirectory()) filename += 'public/fivepoints.html';
  
     fs.readFile(filename, "binary", function(err, file) {
       if(err) {        
