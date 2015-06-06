@@ -23,7 +23,9 @@ var grabCollection = db.get(dbName, 'employees')
 router.addRoute("/api", grabCollection)
 
 http.createServer(function(request, response) {
-	console.log(process.argv)
+	console.log(process.argv);
+	console.log(request.path);
+	console.log(request.body);
 	var uri = url.parse(request.url).pathname
 	, filename = path.join(process.cwd(), uri);
 	console.log("here is uri");
