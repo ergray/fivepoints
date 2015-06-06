@@ -36,11 +36,11 @@ http.createServer(function(request, response) {
 	if (uri == "/") {
 		fs.readFile('./public/fivepoints.html', function(err, contents){
 			if (err) {
-				res.writeHead(500);
-				res.end(err);
+				response.writeHead(500);
+				response.end(err);
 				return;
 			}
-			res.end(contents);
+			response.end(contents);
 		});
 	};
 
