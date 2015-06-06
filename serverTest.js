@@ -30,5 +30,9 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	console.log("here is filename");
 	console.log(filename);
+	if (uri) == "/" {
+		response.write("public/fivepoints.html");
+		response.end();
+	}
 
 }).listen(process.env.PORT || 5000);
