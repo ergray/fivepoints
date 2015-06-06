@@ -33,8 +33,7 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	console.log("here is filename");
 	console.log(filename);
-	if (uri == "/") {
-		fs.readFile('./public/fivepoints.html', function(err, contents){
+	fs.readFile(filename, function(err, contents){
 			if (err) {
 				response.writeHead(500);
 				response.end(err);
@@ -42,6 +41,4 @@ http.createServer(function(request, response) {
 			}
 			response.end(contents);
 		});
-	};
-
 }).listen(process.env.PORT || 5000);
