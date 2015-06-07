@@ -20,8 +20,20 @@ var grabCollection = db.get(dbName, 'employees')
 	});
 
 
-router.addRoute("/api", grabCollection)
-
+router.addRoute("/api", grabCollection);
+router.addRoute("/");
+/*
+var serveFile = function(path){
+	fs.readFile("/app/" + path, function(err, contents){
+			if (err) {
+				response.writeHead(500);
+				response.end(err);
+				return;
+			}
+			response.end(contents);
+		})
+};
+*/
 http.createServer(function(request, response) {
 	console.log(process.argv);
 	console.log(request.url);
@@ -33,6 +45,8 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	console.log("here is filename");
 	console.log(filename);
+	//var match = router.match(uri);
+	//match.serveFile(req, res, match)
 	if (uri == "/"){
 		fs.readFile("./public/fivepoints.html", function(err, contents){
 			if (err) {
@@ -40,15 +54,16 @@ http.createServer(function(request, response) {
 				response.end(err);
 				return;
 			}
+			console.log(contents);
 			response.end(contents);
 		})
-	};
-	fs.readFile(uri, function(err, contents){
+	/*};
+	  fs.readFile(uri, function(err, contents){
 			if (err) {
 				response.writeHead(500);
 				response.end(err);
 				return;
 			}
 			response.end(contents);
-		});
+		});*/
 }).listen(process.env.PORT || 5000);
