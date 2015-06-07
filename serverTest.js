@@ -11,6 +11,7 @@ var sayHello = function(){
 	console.log("Hello say Hello")
 }
 
+/*
 var grabCollection = db.get(dbName, 'employees')
 	.then(function (result) {
 		console.log(result.body);
@@ -18,10 +19,10 @@ var grabCollection = db.get(dbName, 'employees')
 	.fail(function (err) {
 		console.log(err)
 	});
+*/
 
-
-router.addRoute("/api", grabCollection);
-router.addRoute("/");
+router.addRoute("/api", sayHello);
+//router.addRoute("/");
 /*
 var serveFile = function(path){
 	fs.readFile("/app/" + path, function(err, contents){
@@ -45,10 +46,16 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	console.log("here is filename");
 	console.log(filename);
+	console.log("and here is what router.match sees");
+	console.log(router.match(uri));
 	//var match = router.match(uri);
 	//match.serveFile(req, res, match)
+	if (router.match(uri) != undefined){
+		router.match(uri).fn.apply();
+		return;
+	}
 	if (uri == "/"){
-		fs.readFile("./public/fivepoints.html", function(err, contents){
+		fs.readFile("./public/fivepoints.html", 'utf8', function(err, contents){
 			if (err) {
 				response.writeHead(500);
 				response.end(err);
@@ -57,6 +64,17 @@ http.createServer(function(request, response) {
 			console.log(contents);
 			response.end(contents);
 		})
+	} else {
+		fs.readFile(filename, 'utf8', function(err, contents){
+			if (err) {
+				response.writeHead(500);
+				response.end(err);
+				return;
+			}
+			console.log(contents);
+			response.end(contents);
+		})
+	};
 	/*};
 	  fs.readFile(uri, function(err, contents){
 			if (err) {
