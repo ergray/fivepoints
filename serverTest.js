@@ -9,7 +9,7 @@ var dbName = "fivePointsEmployees";
 var date = new Date();
 
 var sayHello = function(){
-	console.log("API is triggered" date.now())
+	console.log("API is triggered" + date.now())
 };
 
 /*
