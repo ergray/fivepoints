@@ -6,10 +6,10 @@ var Router = require('routes');
 var router = Router();
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 var dbName = "fivePointsEmployees";
-var date = new Date();
+var date = Date.now();
 
 var sayHello = function(){
-	console.log("API is triggered" + date.now())
+	console.log("API is triggered" + date)
 };
 
 /*
