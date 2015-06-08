@@ -6,10 +6,11 @@ var Router = require('routes');
 var router = Router();
 var db = require('orchestrate')(process.env.ORCHESTRATE_KEY);
 var dbName = "fivePointsEmployees";
+var date = new Date();
 
 var sayHello = function(){
-	console.log("Hello say Hello")
-}
+	console.log("API is triggered" date.now())
+};
 
 /*
 var grabCollection = db.get(dbName, 'employees')
@@ -36,10 +37,6 @@ var serveFile = function(path){
 };
 */
 http.createServer(function(request, response) {
-	console.log(process.argv);
-	console.log(request.url);
-	//console.log(request.path);
-	//console.log(request.body);
 	var uri = url.parse(request.url).pathname
 	, filename = path.join(process.cwd(), uri);
 	console.log("here is uri");
@@ -61,7 +58,6 @@ http.createServer(function(request, response) {
 				response.end(err);
 				return;
 			}
-			console.log(contents);
 			response.end(contents);
 		})
 	} else {
@@ -71,7 +67,6 @@ http.createServer(function(request, response) {
 				response.end(err);
 				return;
 			}
-			console.log(contents);
 			response.end(contents);
 		})
 	};
