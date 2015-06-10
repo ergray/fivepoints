@@ -3,6 +3,7 @@ var FivePointsEmployee = Backbone.Model.extend({});
 
 var FivePointsEmployees = Backbone.Collection.extend({
 	model: FivePointsEmployee,
+	//url: "/employees.json"
 	url: "/api"
 })
 
@@ -19,19 +20,35 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	initialize: function(){
 		this.collection = new FivePointsEmployees();
-		console.log("fetching");
+		console.log("this is your collection");
+		console.log(this.collection);
 		this.collection.fetch({
-			success: function(place, response, options){
-				console.log("I succeeded!");
-				console.log(place);
-			},
-			error: function(place, response, options){
-				console.log("I failed.")
-			} 
+			success: this.onSuccess,
+			error: this.onError,
 		});
-		console.log("fetched");
-		this.render();
+		console.log("here is collection after fetch, supposedly");
+		console.log(this.collection);
+		this.testRender();
 	},
+
+	testRender: function(){
+		console.log("hi from test render");
+	},
+
+	onSuccess: function(collection, response, options){
+				console.log("I succeeded!");
+				console.log(collection.models);
+				//console.log(this.collection.models);
+			for (i = 0; i < collection.models.length; i++)
+			$('.employees').append('<option value='+collection.at(i).attributes.lastName+'>'
+				+collection.at(i).attributes.lastName+', '+collection.at(i).attributes.firstName + '</option>');
+			},
+
+	onError: function(collection, response, options){
+				console.log("I failed.");
+				console.log(response);
+			}, 
+
 
 	render: function(){
 		for (i = 0; i < this.collection.models.length; i++)

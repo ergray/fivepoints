@@ -14,11 +14,12 @@ var sayHello = function(){
 var grabCollection = db.get(dbName, 'employees')
 	.then(function (result) {
 		console.log(result.body);
+		return result.body;
 	})
 	.fail(function (err) {
 		console.log(err)
+		return;
 	});
-
 
 
 router.addRoute("/api", grabCollection)
