@@ -28,6 +28,7 @@
  
 # OS generated files #
 ######################
+serverTest.js
 config.json
 .DS_Store
 .DS_Store?
