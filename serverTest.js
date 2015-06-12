@@ -19,8 +19,6 @@ var orchestrateDB = function(request, response){db.get(dbName, 'employees')
 	.then(function (result) {
 		countDown++;
 		console.log("logged from grab success " + countDown);
-		console.log("Request and reponse");
-		console.log(JSON.stringify(result.body.fivepoints));
 		response.end(JSON.stringify(result.body.fivepoints));
 	})
 	.fail(function (err) {
@@ -30,27 +28,27 @@ var orchestrateDB = function(request, response){db.get(dbName, 'employees')
 		return;
 	})
 };
-	
+
+var orchestratePUT = function(request, response){
+    request.on('data', function(chunk) {
+      console.log("Received body data:");
+      console.log(chunk.toString());
+      var newData = chunk.toString();
+      return newData;
+    });
+ };  
 
 var grabCollection = function(request, response){
-	console.log("Here is request, response");
-	//console.log(request.body);
-	//console.log(response.body);
 	return orchestrateDB(request, response);
 };
 
 
 router.addRoute("/api", grabCollection);
+router.addRoute("/apiPUT", orchestratePUT);
 
 http.createServer(function(request, response) {
 	var uri = url.parse(request.url).pathname
 	, filename = path.join(process.cwd(), uri);
-	console.log("here is uri");
-	console.log(uri);
-	console.log("here is filename");
-	console.log(filename);
-	console.log("and here is what router.match sees");
-	console.log(router.match(uri));
 	var match = router.match(uri);
 	if (match != undefined){
 		match.fn(request, response)

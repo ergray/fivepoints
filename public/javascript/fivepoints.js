@@ -1,5 +1,7 @@
 
-var FivePointsEmployee = Backbone.Model.extend({});
+var FivePointsEmployee = Backbone.Model.extend({
+	url: "/apiPUT"
+});
 
 var FivePointsEmployees = Backbone.Collection.extend({
 	model: FivePointsEmployee,
@@ -47,7 +49,15 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	onError: function(collection, response, options){
 				console.log("I failed.");
 				console.log(response);
-			}, 
+			},
+
+	modelSuccess: function(){
+		console.log("Model succeeded");
+	},
+
+	modelFailure: function(){
+		console.log("Model failed");
+	},
 
 
 	render: function(){
@@ -70,6 +80,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	},
 
 	selectEmployee: function(){
+		this.clearDays();
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
 		console.log('Select registered');
@@ -89,6 +100,12 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		};
 	},
 
+	clearDays: function(){
+		var dayBoxes = document.getElementsByClassName('days');
+		for (day = 0; day < dayBoxes.length; day++){
+			dayBoxes[day].checked = false
+		}		
+	},
 
 	addEmployee: function(event){
 		event.preventDefault();
@@ -109,13 +126,18 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				daysAvaila.push(dayBoxes[day].id);
 			}
 		}
-		this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
+		var savedEmployee = new FivePointsEmployee({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
+		console.log(savedEmployee.save);
+		savedEmployee.save(null, {
+				success: this.modelSuccess,
+				error: this.modelFailure,
+			});
+		//this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
 		$firstName.val('');
 		$lastName.val('');
-		for (day = 0; day < dayBoxes.length; day++){
-			dayBoxes[day].checked = false
-		}
+		this.clearDays();
 		$('#hours').text(0);
+		this.hours = 0
 	},
 
 
