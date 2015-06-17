@@ -76,6 +76,7 @@ http.createServer(function(request, response) {
 	}
 
 	if (uri == "/favicon.ico"){
+		response.end();
 		return;
 	}
 	if (uri == "/"){
