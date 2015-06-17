@@ -15,11 +15,19 @@ var sayHello = function(){
 	console.log(countDown);
 };
 
-var orchestrateDB = function(request, response){db.get(dbName, 'employees')
+//var orchestrateDB = function(request, response){db.get(dbName, 'employees')
+var orchestrateDB = function(request, response){db.list(dbName)
 	.then(function (result) {
+		var unfilteredData = result.body.results[0].value;
 		countDown++;
-		console.log("logged from grab success " + countDown);
-		response.end(JSON.stringify(result.body.fivepoints));
+		var dataArray = []
+		var data = '';
+		var testData = ''
+		for (i = 0; i <result.body.results.length; i++){
+		dataArray.push(result.body.results[i].value);
+		}		
+		response.end(JSON.stringify(dataArray), null, function(){
+		});
 	})
 	.fail(function (err) {
 		countDown++;
@@ -30,11 +38,22 @@ var orchestrateDB = function(request, response){db.get(dbName, 'employees')
 };
 
 var orchestratePUT = function(request, response){
+	var data = ""
     request.on('data', function(chunk) {
-      console.log("Received body data:");
-      console.log(chunk.toString());
-      var newData = chunk.toString();
-      return newData;
+     data += chunk.toString();
+    });
+    response.end(JSON.stringify(data), null, function(){
+	var parsedJSON = JSON.parse(data);
+    	db.post(dbName, parsedJSON)
+    	.then(function(result){
+    		console.log("Success from post!");
+    	})
+    	.fail(function (error){
+    		console.log("here is the data");
+    		console.log(data);
+    		console.log("HERE IS THE ERROR");
+    		console.log(error.body)
+    	});
     });
  };  
 
@@ -49,15 +68,21 @@ router.addRoute("/apiPUT", orchestratePUT);
 http.createServer(function(request, response) {
 	var uri = url.parse(request.url).pathname
 	, filename = path.join(process.cwd(), uri);
+	console.log(uri);
 	var match = router.match(uri);
 	if (match != undefined){
 		match.fn(request, response)
 		//router.match(uri).fn.apply(null, {request: request}, {response: response});
 		return;
 	}
+
+	if (uri == "/favicon.ico"){
+		return;
+	}
 	if (uri == "/"){
 		fs.readFile("./public/fivepoints.html", 'utf8', function(err, contents){
 			if (err) {
+				console.log("error at / readfile")
 				response.writeHead(500);
 				response.end(err);
 				return;
@@ -67,6 +92,8 @@ http.createServer(function(request, response) {
 	} else {
 		fs.readFile(filename, 'utf8', function(err, contents){
 			if (err) {
+				console.log(filename);
+				console.log("error at secondary readfile")
 				response.writeHead(500);
 				response.end(err);
 				return;

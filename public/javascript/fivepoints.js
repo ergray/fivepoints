@@ -22,14 +22,10 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	initialize: function(){
 		this.collection = new FivePointsEmployees();
-		console.log("this is your collection");
-		console.log(this.collection);
 		this.collection.fetch({
 			success: this.onSuccess,
 			error: this.onError,
 		});
-		console.log("here is collection after fetch, supposedly");
-		console.log(this.collection);
 		this.testRender();
 	},
 
@@ -38,9 +34,6 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	},
 
 	onSuccess: function(collection, response, options){
-				console.log("I succeeded!");
-				console.log(collection.models);
-				//console.log(this.collection.models);
 			for (i = 0; i < collection.models.length; i++)
 			$('.employees').append('<option value='+collection.at(i).attributes.lastName+'>'
 				+collection.at(i).attributes.lastName+', '+collection.at(i).attributes.firstName + '</option>');
@@ -55,7 +48,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		console.log("Model succeeded");
 	},
 
-	modelFailure: function(){
+	modelFailure: function(one, two, three){
 		console.log("Model failed");
 	},
 
@@ -73,9 +66,6 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		} else if (nowBox.id[1] == 'C'){
 			nowBox.checked == true ? this.hours += 7.5 : this.hours -= 7.5
 		};
-		console.log('adjusting hours');
-		console.log($('#hours'));
-		console.log(this.hours);
 		$('#hours').text(this.hours);
 	},
 
@@ -83,20 +73,13 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		this.clearDays();
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
-		console.log('Select registered');
-		console.log($('.employees').val());
 		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
-		console.log(selectedEmployee);
 		$('#hours').text(selectedEmployee.get("Hours"));
-		console.log(selectedEmployee.get("daysAvail"));
 		$firstName.val(selectedEmployee.get("firstName"));
 		$lastName.val(selectedEmployee.get("lastName"));
 		for (day in selectedEmployee.get("daysAvail")) {
 			var checkName = (selectedEmployee.get("daysAvail")[day]);
-			console.log(checkName);
 			document.getElementById(checkName).checked = true;
-			console.log("okay i see it " +
-						selectedEmployee.get("daysAvail"));
 		};
 	},
 
@@ -109,15 +92,11 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	addEmployee: function(event){
 		event.preventDefault();
-		console.log('Adding Employee');
 		var daysAvaila = [];
 		var employeeName = '';
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
-		employeeName = $firstName.val() + ' ' + $lastName.val();	
-	//	this.collection.add({Name: ($firstName.val() + ' ' + $lastName.val())});
-		console.log('adding employee to select');
-		console.log($('.employees'));
+		employeeName = $firstName.val() + ' ' + $lastName.val();
 		$('.employees').append('<option value='+$lastName.val()+'>'
 			+ $lastName.val() + ', ' + $firstName.val() + '</option>');
 		var dayBoxes = document.getElementsByClassName('days');
@@ -127,7 +106,6 @@ var FivePointsEmployeesView = Backbone.View.extend({
 			}
 		}
 		var savedEmployee = new FivePointsEmployee({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
-		console.log(savedEmployee.save);
 		savedEmployee.save(null, {
 				success: this.modelSuccess,
 				error: this.modelFailure,
