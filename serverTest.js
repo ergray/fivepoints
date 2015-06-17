@@ -15,7 +15,6 @@ var sayHello = function(){
 	console.log(countDown);
 };
 
-//var orchestrateDB = function(request, response){db.get(dbName, 'employees')
 var orchestrateDB = function(request, response){db.list(dbName)
 	.then(function (result) {
 		var unfilteredData = result.body.results[0].value;
@@ -101,13 +100,4 @@ http.createServer(function(request, response) {
 			response.end(contents);
 		})
 	};
-	/*};
-	  fs.readFile(uri, function(err, contents){
-			if (err) {
-				response.writeHead(500);
-				response.end(err);
-				return;
-			}
-			response.end(contents);
-		});*/
 }).listen(process.env.PORT || 5000);
