@@ -1,22 +1,28 @@
 
 var FivePointsEmployee = Backbone.Model.extend({
-	url: "/apiPUT"
+	urlRoot: "/apiPUT",
+	idAttribute: "_id"
 });
 
 var FivePointsEmployees = Backbone.Collection.extend({
 	model: FivePointsEmployee,
-	url: "/api"
+	url: "/api",
+
 })
 
 var FivePointsEmployeesView = Backbone.View.extend({
 	el: '#newEmployee',
 
 	events: {
+		'click #deleteEmployee' : 'deleteEmployee',
+		'click #clearScreen' : 'clearScreen',
 		'click #addEmployee': 'addEmployee',
 		'click .days' : 'addHours',
-		'change .employees' : 'selectEmployee',	
+		'change .employees' : 'selectEmployee',			
 	},
+
 	hours: 0,
+	currentEmployee: '',
 
 
 	initialize: function(){
@@ -25,12 +31,12 @@ var FivePointsEmployeesView = Backbone.View.extend({
 			success: this.onSuccess,
 			error: this.onError,
 		});
-		this.testRender();
 	},
 
 	testRender: function(){
 		console.log("hi from test render");
 	},
+
 
 	onSuccess: function(collection, response, options){
 			for (i = 0; i < collection.models.length; i++)
@@ -53,9 +59,21 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 
 	render: function(){
+		this.clearScreen();
 		for (i = 0; i < this.collection.models.length; i++)
 			$('.employees').append('<option value='+this.collection.at(i).attributes.lastName+'>'
 				+this.collection.at(i).attributes.lastName+', '+this.collection.at(i).attributes.firstName + '</option>');
+	},
+
+	clearScreen: function(event){
+		console.log('clearing screen');
+		this.clearDays();
+		this.hours = 0;
+		$('#hours').text(0);
+		$('#firstName').val('');
+		$('#lastName').val('');
+		$('.employees').val('New Employee').selected = true;
+
 	},
 
 	addHours: function(event){
@@ -73,6 +91,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
 		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
+		currentEmployee = selectedEmployee.get("_id");
 		$('#hours').text(selectedEmployee.get("Hours"));
 		$firstName.val(selectedEmployee.get("firstName"));
 		$lastName.val(selectedEmployee.get("lastName"));
@@ -80,6 +99,23 @@ var FivePointsEmployeesView = Backbone.View.extend({
 			var checkName = (selectedEmployee.get("daysAvail")[day]);
 			document.getElementById(checkName).checked = true;
 		};
+	},
+
+	deleteEmployee: function(){
+		//var $lastName = $(this.el).find('#lastName');
+		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
+		selectedEmployee.destroy({
+			success: function(model, response){
+				console.log("model deleted");
+			},
+			error: function(model, response){
+				console.log("failed deletion")
+			},
+		});
+		$("option").remove();
+		this.clearScreen();
+		this.render();
+		$('.employees').val('New Employee').selected = true;
 	},
 
 	clearDays: function(){
@@ -93,6 +129,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		event.preventDefault();
 		var daysAvaila = [];
 		var employeeName = '';
+		var idDate = new Date();
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
 		employeeName = $firstName.val() + ' ' + $lastName.val();
@@ -104,18 +141,28 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				daysAvaila.push(dayBoxes[day].id);
 			}
 		}
-		var savedEmployee = new FivePointsEmployee({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
-		savedEmployee.save(null, {
-				success: this.modelSuccess,
-				error: this.modelFailure,
-			});
-		//this.collection.add({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
-		$firstName.val('');
-		$lastName.val('');
-		this.clearDays();
-		$('#hours').text(0);
-		this.hours = 0
+		var savedEmployee = {_id: ($firstName.val().charAt(0) + $lastName.val().charAt(0) + idDate.getMinutes() + idDate.getSeconds()), firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()};
+		//var savedEmployee = new FivePointsEmployee({_id: ($firstName.val().charAt(0) + $lastName.val().charAt(0) + idDate.getMinutes() + idDate.getSeconds()), firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
+		this.collection.create(savedEmployee);
+		this.clearScreen();
 	},
+		/*
+		savedEmployee.save(null, {
+				success: console.log(this.collection),
+				error: this.modelFailure,
+			}).done(this.collection.reset(), 
+					this.collection.fetch({
+						success: this.onSuccess,
+						error: this.onError,
+					}),
+					this.render())	
+			},
+		*/	
+		//this.clearScreen();
+		//console.log(this.collection);
+		//this.collection.reset();
+		//this.render();
+	//},
 
 
 })

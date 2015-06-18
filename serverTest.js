@@ -9,13 +9,62 @@ var dbName = "fivePointsEmployees";
 var date = Date.now();
 var countDown = 0;
 
-var sayHello = function(){
-	console.log("API is triggered" + date);
-	countDown++;
-	console.log(countDown);
+var sayHello = function(request, response){
+console.log("ok triggered")
+console.log(request.method);
+if (request.method == "POST"){
+	console.log("you got a post bro")
+} else if (request.method == "DELETE"){
+	console.log("burn it down");
+};
+response.end();
 };
 
-var orchestrateDB = function(request, response){db.list(dbName)
+var chooseMethod = function(request, response){
+	request = request;
+	response = response;
+	console.log(request.method);
+	console.log(request.url);
+	if (request.method == "PUT"){
+		orchestratePUT(request, response)
+	} else if (request.method == "DELETE"){
+		orchestrateDel(request, response)
+	}
+};
+
+
+var orchestrateDel = function(request, response){
+	console.log("deleting data");
+ 	console.log(request.url);
+ 	var urlArray = request.url.split("/");
+ 	var orcKey = urlArray[2];
+ 	console.log(orcKey);
+
+	var data = ""
+    request.on('data', function(chunk) {
+     data += chunk.toString();
+     console.log(data);
+    });
+
+    response.end(JSON.stringify(data), null, function(){
+    	console.log("inside response.end");
+    	console.log(data) });
+    	db.remove(dbName, orcKey, true)
+    	.then(function(result){
+    		console.log("Success from deletion!");
+    	})
+    	.fail(function (error){
+    		console.log("here is the data");
+    		console.log(data);
+    		console.log("HERE IS THE ERROR");
+    		console.log(error.body)
+    	});
+    };
+ 
+
+var orchestrateDB = function(request, response){
+	console.log("triggering orch db");
+	db.list(dbName, 100)
 	.then(function (result) {
 		var unfilteredData = result.body.results[0].value;
 		countDown++;
@@ -35,15 +84,17 @@ var orchestrateDB = function(request, response){db.list(dbName)
 		return;
 	})
 };
-
-var orchestratePUT = function(request, response){
+ var orchestratePUT = function(request, response){
+ 	console.log("placing data");
+ 	console.log(request.url);
 	var data = ""
     request.on('data', function(chunk) {
      data += chunk.toString();
     });
+
     response.end(JSON.stringify(data), null, function(){
 	var parsedJSON = JSON.parse(data);
-    	db.post(dbName, parsedJSON)
+    	db.put(dbName, parsedJSON._id, parsedJSON)
     	.then(function(result){
     		console.log("Success from post!");
     	})
@@ -54,24 +105,25 @@ var orchestratePUT = function(request, response){
     		console.log(error.body)
     	});
     });
- };  
+ };   
+
 
 var grabCollection = function(request, response){
 	return orchestrateDB(request, response);
 };
 
 
-router.addRoute("/api", grabCollection);
-router.addRoute("/apiPUT", orchestratePUT);
+router.addRoute("/api", orchestrateDB);
+router.addRoute("/apiPUT/:n?", chooseMethod);
 
 http.createServer(function(request, response) {
 	var uri = url.parse(request.url).pathname
 	, filename = path.join(process.cwd(), uri);
 	console.log(uri);
+	uriSplit = uri.split("/");
 	var match = router.match(uri);
 	if (match != undefined){
 		match.fn(request, response)
-		//router.match(uri).fn.apply(null, {request: request}, {response: response});
 		return;
 	}
 
