@@ -40,7 +40,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	onSuccess: function(collection, response, options){
 			for (i = 0; i < collection.models.length; i++)
-			$('.employees').append('<option value='+collection.at(i).attributes.lastName+'>'
+			$('.employees').append('<option value='+collection.at(i).attributes._id+'>'
 				+collection.at(i).attributes.lastName+', '+collection.at(i).attributes.firstName + '</option>');
 			},
 
@@ -61,7 +61,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 	render: function(){
 		this.clearScreen();
 		for (i = 0; i < this.collection.models.length; i++)
-			$('.employees').append('<option value='+this.collection.at(i).attributes.lastName+'>'
+			console.log(this.collection.at(i).attributes_id);
+			$('.employees').append('<option value='+this.collection.at(i).attributes._id+'>'
 				+this.collection.at(i).attributes.lastName+', '+this.collection.at(i).attributes.firstName + '</option>');
 	},
 
@@ -90,8 +91,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		this.clearDays();
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
-		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
-		currentEmployee = selectedEmployee.get("_id");
+		var selectedEmployee = this.collection.findWhere({_id: $('.employees').val()});
 		$('#hours').text(selectedEmployee.get("Hours"));
 		$firstName.val(selectedEmployee.get("firstName"));
 		$lastName.val(selectedEmployee.get("lastName"));
