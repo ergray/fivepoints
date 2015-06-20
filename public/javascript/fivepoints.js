@@ -103,7 +103,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	deleteEmployee: function(){
 		//var $lastName = $(this.el).find('#lastName');
-		var selectedEmployee = this.collection.findWhere({lastName: $('.employees').val()});
+		var selectedEmployee = this.collection.findWhere({_id: $('.employees').val()});
 		selectedEmployee.destroy({
 			success: function(model, response){
 				console.log("model deleted");
