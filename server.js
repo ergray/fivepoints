@@ -106,9 +106,16 @@ var grabCollection = function(request, response){
 	return orchestrateDB(request, response);
 };
 
+var ignore = function(request, response){
+	response.end();
+};
+
 
 router.addRoute("/api", orchestrateDB);
 router.addRoute("/apiPUT/:n?", chooseMethod);
+router.addRoute("/favicon/:n?", ignore);
+
+
 
 http.createServer(function(request, response) {
 	var uri = url.parse(request.url).pathname
@@ -119,12 +126,8 @@ http.createServer(function(request, response) {
 	if (match != undefined){
 		match.fn(request, response)
 		return;
-	}
-
-	if (uri == "/favicon.ico"){
-		return;
-		response.end();
-	}
+	};
+	
 	if (uri == "/"){
 		fs.readFile("./public/fivepoints.html", 'utf8', function(err, contents){
 			if (err) {
