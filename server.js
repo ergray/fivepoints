@@ -77,6 +77,10 @@ var orchestrateDB = function(request, response){
  var orchestratePUT = function(request, response){
  	console.log("placing data");
  	console.log(request.url);
+ 	if (request.url == undefined){
+ 		console.log("sorry, didn't quite catch that, try again");
+ 		return;
+ 	}
 	var data = ""
     request.on('data', function(chunk) {
      data += chunk.toString();
@@ -119,6 +123,7 @@ http.createServer(function(request, response) {
 
 	if (uri == "/favicon.ico"){
 		return;
+		response.end();
 	}
 	if (uri == "/"){
 		fs.readFile("./public/fivepoints.html", 'utf8', function(err, contents){
