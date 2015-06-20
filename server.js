@@ -107,7 +107,7 @@ var grabCollection = function(request, response){
 };
 
 var ignore = function(request, response){
-	response.end();
+	response.end(console.log("closing from favicon"));
 };
 
 
