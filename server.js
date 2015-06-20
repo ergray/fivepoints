@@ -113,7 +113,7 @@ var ignore = function(request, response){
 
 router.addRoute("/api", orchestrateDB);
 router.addRoute("/apiPUT/:n?", chooseMethod);
-router.addRoute("/favicon/:n?", ignore);
+router.addRoute("/favicon.ico", ignore);
 
 
 
