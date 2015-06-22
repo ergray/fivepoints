@@ -108,16 +108,9 @@ var grabCollection = function(request, response){
 	return orchestrateDB(request, response);
 };
 
-var ignore = function(request, response){
-	console.log("next from favicon");
-	//match.next();
-	return
-};
-
 
 router.addRoute("/api", orchestrateDB);
 router.addRoute("/apiPUT/:n?", chooseMethod);
-router.addRoute("/favicon.ico", ignore);
 
 
 
@@ -127,9 +120,6 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	uriSplit = uri.split("/");
 	var match = router.match(uri);
-		if (match == "/favicon.ico"){
-		match = match.next();
-	};
 	if (match != undefined){
 		match.fn(request, response)
 		return;

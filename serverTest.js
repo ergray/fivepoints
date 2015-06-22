@@ -131,10 +131,11 @@ http.createServer(function(request, response) {
 		match.fn(request, response)
 		return;
 	}
-
+/*
 	if (uri == "/favicon.ico"){
 		return;
 	}
+*/
 	if (uri == "/"){
 		fs.readFile("./public/fivepoints.html", 'utf8', function(err, contents){
 			if (err) {
