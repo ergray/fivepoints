@@ -68,29 +68,29 @@ var orchestrateDB = function(request, response){
 	.then(function (result) {
 		var unfilteredData = result.body.results[0].value;
 		countDown++;
-		var dataArray = []
+		var dataArray = [];
 		var data = '';
-		var testData = ''
+		var testData = '';
 		for (i = 0; i <result.body.results.length; i++){
 		dataArray.push(result.body.results[i].value);
-		}		
+		};		
 		response.end(JSON.stringify(dataArray), null, function(){
 		});
 	})
 	.fail(function (err) {
 		countDown++;
 		console.log("logged from grab fail " + countDown);
-		console.log(err)
+		console.log(err);
 		return;
 	})
 };
  var orchestratePUT = function(request, response){
  	console.log("placing data");
  	console.log(request.url);
-	var data = ""
+	var data = "";
     request.on('data', function(chunk) {
      data += chunk.toString();
-    
+
     	console.log('data from request.on');
     	console.log(data);
     });
