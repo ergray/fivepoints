@@ -108,7 +108,8 @@ var grabCollection = function(request, response){
 
 var ignore = function(request, response){
 	console.log("next from favicon");
-	match.next();
+	//match.next();
+	return
 };
 
 
@@ -124,10 +125,14 @@ http.createServer(function(request, response) {
 	console.log(uri);
 	uriSplit = uri.split("/");
 	var match = router.match(uri);
+		if (match == "/favicon.ico"){
+		match = match.next();
+	};
 	if (match != undefined){
 		match.fn(request, response)
 		return;
 	};
+
 	
 	if (uri == "/"){
 		fs.readFile("./public/fivepoints.html", 'utf8', function(err, contents){
