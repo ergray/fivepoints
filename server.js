@@ -83,11 +83,13 @@ var orchestrateDB = function(request, response){
  	}
 	var data = ""
     request.on('data', function(chunk) {
+    	console.log('in the middle of request.on')
      data += chunk.toString();
     });
 
     response.end(JSON.stringify(data), null, function(){
 	var parsedJSON = JSON.parse(data);
+		console.log("at response.end of parsing data");
     	db.put(dbName, parsedJSON._id, parsedJSON)
     	.then(function(result){
     		console.log("Success from post!");
