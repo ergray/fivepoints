@@ -133,7 +133,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
 		employeeName = $firstName.val() + ' ' + $lastName.val();
-		$('.employees').append('<option value='+$lastName.val()+'>'
+		var $empID = ($firstName.val().charAt(0) + $lastName.val().charAt(0) + idDate.getMinutes() + idDate.getSeconds());
+		$('.employees').append('<option value='+$empID+'>'
 			+ $lastName.val() + ', ' + $firstName.val() + '</option>');
 		var dayBoxes = document.getElementsByClassName('days');
 		for (day = 0; day < dayBoxes.length; day++){
@@ -141,9 +142,11 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				daysAvaila.push(dayBoxes[day].id);
 			}
 		}
-		var savedEmployee = {_id: ($firstName.val().charAt(0) + $lastName.val().charAt(0) + idDate.getMinutes() + idDate.getSeconds()), firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()};
+		var savedEmployee = {_id: $empID, firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()};
 		//var savedEmployee = new FivePointsEmployee({_id: ($firstName.val().charAt(0) + $lastName.val().charAt(0) + idDate.getMinutes() + idDate.getSeconds()), firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
 		this.collection.create(savedEmployee);
+		console.log("logging new collection");
+		console.log(this.collection);
 		this.clearScreen();
 	},
 		/*
