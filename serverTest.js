@@ -90,9 +90,14 @@ var orchestrateDB = function(request, response){
 	var data = ""
     request.on('data', function(chunk) {
      data += chunk.toString();
+    
+    	console.log('data from request.on');
+    	console.log(data);
     });
 
     response.end(JSON.stringify(data), null, function(){
+    	console.log("data from within response.end");
+    	console.log(data);
 	var parsedJSON = JSON.parse(data);
     	db.put(dbName, parsedJSON._id, parsedJSON)
     	.then(function(result){

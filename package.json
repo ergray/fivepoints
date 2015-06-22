@@ -1,6 +1,9 @@
 {
   "name": "fivepoints",
   "version": "1.0.0",
+  "engines" : {
+    "node" : "0.12.x"
+  },
   "description": "Scheduler for Five Points Coffee",
   "main": "./javascript/fivepoints.js",
   "scripts": {
