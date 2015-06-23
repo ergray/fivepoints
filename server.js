@@ -86,7 +86,8 @@ var orchestrateDB = function(request, response){
     	console.log('in the middle of request.on')
      data += chunk.toString();
     });
-
+    console.log('about to enter response.end');
+    console.log(data);
     response.end(JSON.stringify(data), null, function(){
 	var parsedJSON = JSON.parse(data);
 		console.log("at response.end of parsing data");
