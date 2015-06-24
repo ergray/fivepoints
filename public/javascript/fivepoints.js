@@ -112,7 +112,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				console.log("failed deletion")
 			},
 		});
-		$("option").remove();
+		//$("option").remove();
+		console.log(this.collection);
 		this.clearScreen();
 		this.render();
 		$('.employees').val('New Employee').selected = true;
