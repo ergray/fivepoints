@@ -92,6 +92,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
 		var selectedEmployee = this.collection.findWhere({_id: $('.employees').val()});
+		currentEmployee = selectedEmployee.get("_id");
 		$('#hours').text(selectedEmployee.get("Hours"));
 		$firstName.val(selectedEmployee.get("firstName"));
 		$lastName.val(selectedEmployee.get("lastName"));
@@ -111,11 +112,14 @@ var FivePointsEmployeesView = Backbone.View.extend({
 			error: function(model, response){
 				console.log("failed deletion")
 			},
-		});
+		}).then(console.log(currentEmployee))
+											 .then($(".employees option[value=" +currentEmployee+ "]").remove())
+											 /*.then(console.log('on to removed'))*/
+											 .then(this.clearScreen());
 		//$("option").remove();
 		console.log(this.collection);
-		this.clearScreen();
-		this.render();
+		//this.clearScreen();
+		//this.render();
 		$('.employees').val('New Employee').selected = true;
 	},
 
