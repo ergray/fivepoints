@@ -77,20 +77,19 @@ var orchestrateDB = function(request, response){
  var orchestratePUT = function(request, response){
  	console.log("placing data");
  	console.log(request.url);
- 	if (request.url == undefined){
- 		console.log("sorry, didn't quite catch that, try again");
- 		return;
- 	}
-	var data = ""
+	var data = "";
     request.on('data', function(chunk) {
-    	console.log('in the middle of request.on')
      data += chunk.toString();
-    });
-    console.log('about to enter response.end');
-    console.log(data);
-    response.end(JSON.stringify(data), null, function(){
+
+    	console.log('data from request.on');
+    	console.log(data);
+
+
+
+   response.end(JSON.stringify(data), null, function(){
+    	console.log("data from within response.end");
+    	console.log(data);
 	var parsedJSON = JSON.parse(data);
-		console.log("at response.end of parsing data");
     	db.put(dbName, parsedJSON._id, parsedJSON)
     	.then(function(result){
     		console.log("Success from post!");
@@ -102,7 +101,8 @@ var orchestrateDB = function(request, response){
     		console.log(error.body)
     	});
     });
- };   
+  });
+ }   
 
 
 var grabCollection = function(request, response){

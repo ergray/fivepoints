@@ -93,9 +93,10 @@ var orchestrateDB = function(request, response){
 
     	console.log('data from request.on');
     	console.log(data);
-    });
 
-    response.end(JSON.stringify(data), null, function(){
+
+
+   response.end(JSON.stringify(data), null, function(){
     	console.log("data from within response.end");
     	console.log(data);
 	var parsedJSON = JSON.parse(data);
@@ -110,6 +111,7 @@ var orchestrateDB = function(request, response){
     		console.log(error.body)
     	});
     });
+  });
  };   
 
 
