@@ -18,7 +18,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		'click #clearScreen' : 'clearScreen',
 		'click #addEmployee': 'addEmployee',
 		'click .days' : 'addHours',
-		'change .employees' : 'selectEmployee',			
+		'change .employees' : 'selectEmployee',	
+		'click #editEmployee' : 'saveChanges',		
 	},
 
 	hours: 0,
@@ -31,6 +32,21 @@ var FivePointsEmployeesView = Backbone.View.extend({
 			success: this.onSuccess,
 			error: this.onError,
 		});
+	},
+
+	saveChanges: function(){
+		var model = this.collection.findWhere({_id: $('.employees').val()});
+		console.log(model);
+		var daysAvaila = [];
+		var $firstName = $(this.el).find('#firstName');
+		var $lastName = $(this.el).find('#lastName');
+		var dayBoxes = document.getElementsByClassName('days');
+		for (day = 0; day < dayBoxes.length; day++){
+			if (dayBoxes[day].checked == true){
+				daysAvaila.push(dayBoxes[day].id);
+			}
+		};				
+		model.save({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
 	},
 
 	testRender: function(){
@@ -70,6 +86,8 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		console.log('clearing screen');
 		this.clearDays();
 		this.hours = 0;
+		$('#addEmployee').removeAttr('disabled');
+		$('#editEmployee').attr('disabled', true);
 		$('#hours').text(0);
 		$('#firstName').val('');
 		$('#lastName').val('');
@@ -89,10 +107,13 @@ var FivePointsEmployeesView = Backbone.View.extend({
 
 	selectEmployee: function(){
 		this.clearDays();
+		$('#addEmployee').attr("disabled", true);
+		$('#editEmployee').removeAttr("disabled");
 		var $firstName = $(this.el).find('#firstName');
 		var $lastName = $(this.el).find('#lastName');
 		var selectedEmployee = this.collection.findWhere({_id: $('.employees').val()});
 		currentEmployee = selectedEmployee.get("_id");
+		this.hours = selectedEmployee.get("Hours");
 		$('#hours').text(selectedEmployee.get("Hours"));
 		$firstName.val(selectedEmployee.get("firstName"));
 		$lastName.val(selectedEmployee.get("lastName"));
