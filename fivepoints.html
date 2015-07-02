@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js'></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js'></script>
+<script type='text/javascript' src="./fivepoints.js"></script>
+<link rel='stylesheet' type='text/css' href='fivelooks.css'>
+</head>
+	<body class="scheduler">
+		<form id='newEmployee' action=''>
+		First Name: <input type='text' id='firstName' name='firstName'><br>
+		Last Name: <input type='text' id='lastName' name='lastName'><br><br>
+		<table border='1'>
+			<tr>
+				<td></td>
+				<td>OPEN</td>
+				<td>MID</td>
+				<td>CLOSE</td>
+			<tr>
+				<th>Monday</th>
+				<td><input type='checkbox' class='days' id='MO'></td>
+				<td><input type='checkbox' class='days' id='MM'></td>
+				<td><input type='checkbox' class='days' id='MC'></td>
+			</tr>
+			<tr>
+				<th>Tuesday</th>
+				<td><input type='checkbox' class='days' id='tO'></td>
+				<td><input type='checkbox' class='days' id='tM'></td>
+				<td><input type='checkbox' class='days' id='tC'></td>
+			<tr>
+				<th>Wednesday</th>
+				<td><input type='checkbox' class='days' id='WO'></td>
+				<td><input type='checkbox' class='days' id='WM'></td>
+				<td><input type='checkbox' class='days' id='WC'></td>
+			<tr>
+				<th>Thursday</th>
+				<td><input type='checkbox' class='days' id='TO'></td>
+				<td><input type='checkbox' class='days' id='TM'></td>
+				<td><input type='checkbox' class='days' id='TC'></td>
+			<tr>
+				<th>Friday</th>
+				<td><input type='checkbox' class='days' id='FO'></td>
+				<td><input type='checkbox' class='days' id='FM'></td>
+				<td><input type='checkbox' class='days' id='FC'></td>
+			<tr>
+				<th>Saturday</th>
+				<td><input type='checkbox' class='days' id='sO'></td>
+				<td><input type='checkbox' class='days' id='sM'></td>
+				<td><input type='checkbox' class='days' id='sC'></td>
+			<tr>
+				<th>Sunday</th>
+				<td><input type='checkbox' class='days' id='SO'></td>
+				<td><input type='checkbox' class='days' id='SM'></td>
+				<td><input type='checkbox' class='days' id='SC'></td>
+			<tr>
+				<td>Total Hours:</td><td id='hours'>0</td>
+		</table>
+	<button type='button' id='addEmployee'>Save</button><br>
+	<select class="employees" name="Select Employee">
+		<option value='New Employee'>Select Employee</option>
+	</form>
+	</select>
+
+
+</body>
+</html>
