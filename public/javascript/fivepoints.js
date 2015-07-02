@@ -112,7 +112,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 		var $lastName = $(this.el).find('#lastName');
 		var selectedEmployee = this.collection.findWhere({_id: $('.employees').val()});
 		currentEmployee = selectedEmployee.get("_id");
-		this.hours = selectedEmployee.get("Hours");
+		this.hours = Number(selectedEmployee.get("Hours"));
 		$('#hours').text(selectedEmployee.get("Hours"));
 		$firstName.val(selectedEmployee.get("firstName"));
 		$lastName.val(selectedEmployee.get("lastName"));
