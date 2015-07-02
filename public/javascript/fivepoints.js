@@ -46,7 +46,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				daysAvaila.push(dayBoxes[day].id);
 			}
 		};				
-		model.save({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
+		model.save({firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: this.hours});
 	},
 
 	testRender: function(){
@@ -168,7 +168,7 @@ var FivePointsEmployeesView = Backbone.View.extend({
 				daysAvaila.push(dayBoxes[day].id);
 			}
 		}
-		var savedEmployee = {_id: $empID, firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()};
+		var savedEmployee = {_id: $empID, firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: this.hours};
 		//var savedEmployee = new FivePointsEmployee({_id: ($firstName.val().charAt(0) + $lastName.val().charAt(0) + idDate.getMinutes() + idDate.getSeconds()), firstName: $firstName.val(), lastName: $lastName.val(), daysAvail: daysAvaila, Hours: $('#hours').text()});
 		this.collection.create(savedEmployee);
 		console.log("logging new collection");
