@@ -1,0 +1,8 @@
+{
+	"name": "scheduler",
+	"description": "fivepoints in react",
+	"version" : "0.0.1",
+	"dependencies" : {
+		"express" : "~4.12.x"
+	}
+}
